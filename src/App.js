@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import "typeface-roboto";
+import Grid from "@material-ui/core/Grid";
 
 import Header from "./components/Header";
 import Form from "./components/Form";
@@ -47,18 +48,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Route
-          path="/:uuid"
-          render={props => (
-            <Form
-              saveUUID={uuid => this.saveUUID(uuid)}
-              userData={this.state.userData}
-              {...props}
-            />
-          )}
-        />
+      <div className="background">
+        <Grid container spacing={3}>
+          <Grid item xs={12} className="header">
+            <Header />
+          </Grid>
+        </Grid>
+        <Grid item xs="12">
+          <Route
+            path="/:uuid"
+            render={props => (
+              <Form
+                saveUUID={uuid => this.saveUUID(uuid)}
+                userData={this.state.userData}
+                {...props}
+              />
+            )}
+          />
+        </Grid>
       </div>
     );
   }

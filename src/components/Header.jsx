@@ -5,7 +5,7 @@ import "../App.css";
 class Header extends Component {
   render() {
     return (
-      <div className="row header">
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <img
             className="banner center-align"
@@ -13,7 +13,7 @@ class Header extends Component {
             alt="Rose City Gymnastics"
           />
         </Grid>
-      </div>
+      </Grid>
     );
   }
 }
