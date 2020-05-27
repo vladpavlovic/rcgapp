@@ -29,3 +29,8 @@
   width: 70vw;
   min-height: 100vh;
 }
+
+td {
+  text-align: left;
+  padding-right: 25px;
+}

@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 
 import Header from "./components/Header";
 import Form from "./components/Form";
+import AthleteGuestSelect from "./components/AthleteGuestSelect";
 import { ConsoleWriter } from "istanbul-lib-report";
 
 class App extends Component {
@@ -15,8 +16,9 @@ class App extends Component {
 
     this.state = {
       uuid: undefined,
-      athleteUuid: undefined,
-      userData: []
+      athletes: [],
+      userData: [],
+      currentUser: []
     };
   }
 
@@ -46,6 +48,16 @@ class App extends Component {
     });
   };
 
+  setCurrentUser = current => {
+    let __currentUser = current;
+    this.setState(
+      {
+        currentUser: __currentUser
+      },
+      () => console.log(this.state.currentUser.first_name)
+    );
+  };
+
   render() {
     return (
       <div className="background">
@@ -54,13 +66,15 @@ class App extends Component {
             <Header />
           </Grid>
         </Grid>
-        <Grid item xs="12">
+        <Grid item xs={12}>
           <Route
             path="/:uuid"
             render={props => (
               <Form
                 saveUUID={uuid => this.saveUUID(uuid)}
                 userData={this.state.userData}
+                athletes={this.state.athletes}
+                setCurrentUser={current => this.setCurrentUser(current)}
                 {...props}
               />
             )}
