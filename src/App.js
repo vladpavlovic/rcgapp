@@ -6,7 +6,7 @@ import "typeface-roboto";
 import Grid from "@material-ui/core/Grid";
 
 import Header from "./components/Header";
-import Form from "./components/Form";
+import Main from "./components/Main";
 import AthleteGuestSelect from "./components/AthleteGuestSelect";
 import { ConsoleWriter } from "istanbul-lib-report";
 
@@ -18,7 +18,7 @@ class App extends Component {
       uuid: undefined,
       athletes: [],
       userData: [],
-      currentUser: []
+      currentUser: null
     };
   }
 
@@ -70,10 +70,11 @@ class App extends Component {
           <Route
             path="/:uuid"
             render={props => (
-              <Form
+              <Main
                 saveUUID={uuid => this.saveUUID(uuid)}
                 userData={this.state.userData}
                 athletes={this.state.athletes}
+                currentUser={this.state.currentUser}
                 setCurrentUser={current => this.setCurrentUser(current)}
                 {...props}
               />
