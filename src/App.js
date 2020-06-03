@@ -18,45 +18,62 @@ class App extends Component {
       uuid: undefined,
       athletes: [],
       userData: [],
-      currentUser: null
+      currentUser: null,
+      agreement: [],
     };
   }
 
-  saveUUID = formUUID => {
+  componentDidMount() {
+    this.getAgreement();
+  }
+  saveUUID = (formUUID) => {
     console.log("This is the form UUID" + formUUID);
     let __uuid = formUUID;
 
     this.setState(
       {
-        uuid: __uuid
+        uuid: __uuid,
       },
       () => this.getForm(this.state.uuid)
     );
   };
 
-  getForm = uuid => {
+  getForm = (uuid) => {
     console.log("I am here" + this.state.uuid);
-    axios.get(`http://rcgcovidapi.lypan.com/parents/${uuid}`).then(response => {
-      let __userData = response;
-      console.log(response);
-      this.setState(
-        {
-          userData: __userData
-        },
-        () => console.log(this.state.userData)
-      );
-    });
+    axios
+      .get(`http://rcgcovidapi.lypan.com/parents/${uuid}`)
+      .then((response) => {
+        let __userData = response;
+        console.log(response);
+        this.setState(
+          {
+            userData: __userData,
+          },
+          () => console.log(this.state.userData)
+        );
+      });
   };
 
-  setCurrentUser = current => {
+  setCurrentUser = (current) => {
     let __currentUser = current;
     this.setState(
       {
-        currentUser: __currentUser
+        currentUser: __currentUser,
       },
-      () => console.log(this.state.currentUser.first_name)
+      () => console.log("blah")
     );
   };
+
+  getAgreement = () =>
+    axios.get("http://rcgcovidapi.lypan.com/agreements").then((response) => {
+      let __agreement = response.data._embedded.items[0];
+      this.setState(
+        {
+          agreement: __agreement,
+        },
+        () => console.log(this.state.agreement)
+      );
+    });
 
   render() {
     return (
@@ -69,13 +86,14 @@ class App extends Component {
         <Grid item xs={12}>
           <Route
             path="/:uuid"
-            render={props => (
+            render={(props) => (
               <Main
-                saveUUID={uuid => this.saveUUID(uuid)}
+                saveUUID={(uuid) => this.saveUUID(uuid)}
                 userData={this.state.userData}
                 athletes={this.state.athletes}
                 currentUser={this.state.currentUser}
-                setCurrentUser={current => this.setCurrentUser(current)}
+                setCurrentUser={(current) => this.setCurrentUser(current)}
+                agreement={this.state.agreement}
                 {...props}
               />
             )}

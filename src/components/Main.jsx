@@ -6,9 +6,7 @@ import Checklist from "./Checklist";
 
 class Main extends Component {
   componentDidMount() {
-    console.log(this.props);
     this.props.saveUUID(this.props.match.params.uuid);
-    console.log(this.props.userData);
   }
   componentDidUpdate() {
     console.log(this.props.userData.data);
@@ -25,7 +23,7 @@ class Main extends Component {
               <Grid item xs={12}>
                 <h2>
                   Rose City Gymnastics COVID-19 Daily Wellness Entrance
-                  Checklist
+                  Agreement
                 </h2>
               </Grid>
             </Grid>
@@ -37,7 +35,9 @@ class Main extends Component {
                 <AthleteGuestSelect
                   userData={this.props.userData}
                   athletes={this.props.userData.data.athletes}
-                  setCurrentUser={current => this.props.setCurrentUser(current)}
+                  setCurrentUser={(current) =>
+                    this.props.setCurrentUser(current)
+                  }
                 />
               </Grid>
             </Grid>
@@ -57,7 +57,7 @@ class Main extends Component {
                   </h2>
                 </Grid>
 
-                <Checklist />
+                <Checklist agreement={this.props.agreement} />
               </Grid>
             </Grid>
           </Container>
