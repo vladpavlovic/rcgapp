@@ -9,13 +9,11 @@ import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 class AthleteGuestSelect extends Component {
   handleInputChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+
     this.props.setCurrentUser(e.target.value);
   };
 
   render() {
-    console.log(this.props.athletes);
-
     if (!this.props.athletes) {
       return <div></div>;
     }

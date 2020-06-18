@@ -24,6 +24,7 @@ class App extends Component {
       agreementUUID: undefined,
       completed: {},
       signedAgreement: {},
+      message: "",
     };
   }
 
@@ -31,7 +32,6 @@ class App extends Component {
     this.getAgreement();
   }
   saveUUID = (formUUID) => {
-    console.log("This is the form UUID" + formUUID);
     let __uuid = formUUID;
 
     this.setState(
@@ -43,29 +43,28 @@ class App extends Component {
   };
 
   getForm = (uuid) => {
-    console.log("I am here" + this.state.uuid);
     axios
       .get(`http://rcgcovidapi.lypan.com/parents/${uuid}`)
       .then((response) => {
         let __userData = response;
-        console.log(response);
+
         this.setState(
           {
             userData: __userData,
           },
-          () => console.log(this.state.userData)
+          () => console.log("Form has been retrieved")
         );
       });
   };
 
   setCurrentUser = (current) => {
     let __currentUser = current;
-    console.log(current);
+
     this.setState(
       {
         currentUser: __currentUser,
       },
-      () => console.log(this.state.currentUser)
+      () => console.log("")
     );
   };
 
@@ -78,7 +77,7 @@ class App extends Component {
           agreement: __agreement,
           agreementUUID: __agreementUUID,
         },
-        () => console.log(this.state.agreement)
+        () => console.log("Agreement has been retrieved")
       );
     });
 
@@ -92,8 +91,6 @@ class App extends Component {
       });
     });
 
-    console.log(__completedAnswers);
-
     this.setState(
       {
         completed: __completedAnswers,
@@ -103,8 +100,6 @@ class App extends Component {
   };
 
   assembleAgreement = (completed) => {
-    console.log("in assembleAgreement");
-    console.log(completed);
     let __signedAgreement = {
       parent_uuid: this.state.uuid,
       questions: this.state.completed,
@@ -118,7 +113,6 @@ class App extends Component {
   };
 
   submitAgreement = (signedAgreement) => {
-    console.log(signedAgreement);
     axios
       .post(
         `http://rcgcovidapi.lypan.com/athletes/${this.state.currentUser}/agreements/${this.state.agreementUUID}/actions/sign`,
@@ -126,7 +120,6 @@ class App extends Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        console.log(response);
         swal(response.data.message);
       });
   };

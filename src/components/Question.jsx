@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import swal from "sweetalert";
 import Container from "@material-ui/core/Container";
 
 class Question extends Component {
   renderType = (item) => {
-    console.log(item);
     switch (item.question_type) {
       case "boolean":
         return (
           "<p><label>Yes&nbsp</label><input name=" +
           item.uuid +
-          ' type="radio" value="1"  />&nbsp&nbsp<label>No&nbsp</label><input name=' +
+          ' type="radio" value="1" required />&nbsp&nbsp<label>No&nbsp</label><input name=' +
           item.uuid +
           ' type="radio" value="0"  /></p>'
         );
@@ -18,7 +18,7 @@ class Question extends Component {
         return (
           "<p><label>Yes&nbsp</label><input name=" +
           item.uuid +
-          ' type="radio" value="1" />&nbsp&nbsp<label>No&nbsp</label><input name=' +
+          ' type="radio" value="1" required />&nbsp&nbsp<label>No&nbsp</label><input name=' +
           item.uuid +
           ' type="radio" value="0"  /></p>'
         );
@@ -26,7 +26,7 @@ class Question extends Component {
         return (
           "<p><label><p>Temperature:</p> <input name=" +
           item.uuid +
-          ' type="text" value="" size="5" /></label> <input name="unit" type="radio" value="degC" /><label>&degC</label>&nbsp<input name="unit" type="radio" value="degF"  /><label>&degF</label> </p>'
+          ' type="text" value="" size="5" required/></label> <select> <option name="unit" selected value="degC">&degC</option><option name="unit" value="degF">&degF</option>  /></p>'
         );
       default:
         return "";
@@ -35,11 +35,16 @@ class Question extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const answers = [];
+
     formData.forEach((value, property) => (answers[property] = value));
+
+    console.log(answers);
+
     //here you can update, remove, add values/properties in the body object this is specially usefull if any custom process must be done to check, encrypt data or wherever you want.
-    console.table(answers);
+
     // Request goes here.
 
     this.props.getAnswers(answers);

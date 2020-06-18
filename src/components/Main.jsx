@@ -8,9 +8,7 @@ class Main extends Component {
   componentDidMount() {
     this.props.saveUUID(this.props.match.params.uuid);
   }
-  componentDidUpdate() {
-    console.log(this.props.userData.data);
-  }
+  componentDidUpdate() {}
 
   render() {
     if (!this.props.userData.data) {
