@@ -7,7 +7,7 @@ import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
 class AthleteGuestSelect extends Component {
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     e.preventDefault();
     console.log(e.target.value);
     this.props.setCurrentUser(e.target.value);
@@ -36,7 +36,7 @@ class AthleteGuestSelect extends Component {
               <input
                 name="whichAthlete"
                 type="radio"
-                value={this.props.userData.data}
+                value={this.props.userData.data.uuid}
                 onChange={this.handleInputChange}
               />
             </Grid>
@@ -59,7 +59,7 @@ class AthleteGuestSelect extends Component {
                 <input
                   name="whichAthlete"
                   type="radio"
-                  value={item}
+                  value={item.uuid}
                   onChange={this.handleInputChange}
                 />
               </Grid>

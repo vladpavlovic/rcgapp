@@ -35,6 +35,7 @@ class Main extends Component {
                 <AthleteGuestSelect
                   userData={this.props.userData}
                   athletes={this.props.userData.data.athletes}
+                  getAnswers={(answers) => this.getAnswers(answers)}
                   setCurrentUser={(current) =>
                     this.props.setCurrentUser(current)
                   }
@@ -57,7 +58,10 @@ class Main extends Component {
                   </h2>
                 </Grid>
 
-                <Checklist agreement={this.props.agreement} />
+                <Checklist
+                  agreement={this.props.agreement}
+                  getAnswers={(answers) => this.props.getAnswers(answers)}
+                />
               </Grid>
             </Grid>
           </Container>

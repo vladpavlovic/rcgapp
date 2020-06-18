@@ -8,7 +8,7 @@ class Checklist extends Component {
     if (!this.props.agreement.questions) {
       return <div></div>;
     }
-    console.log(this.props.agreement.questions);
+
     return (
       <Container className="formBackground" maxWidth="md">
         <Grid container spacing={3}>
@@ -33,7 +33,10 @@ class Checklist extends Component {
 
         <Grid container spacing={3} justify="left" align="left">
           <Grid item xs={12}>
-            <Question agreement={this.props.agreement} />
+            <Question
+              agreement={this.props.agreement}
+              getAnswers={(answers) => this.props.getAnswers(answers)}
+            />
           </Grid>
         </Grid>
       </Container>
