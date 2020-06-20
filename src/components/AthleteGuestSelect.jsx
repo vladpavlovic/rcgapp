@@ -4,11 +4,6 @@ import "../App.css";
 import Paper from "@material-ui/core/Paper";
 
 class AthleteGuestSelect extends Component {
-  componentDidMount() {
-    console.log(this.props.uuid);
-    console.log(this.props.athletes);
-  }
-
   handleInputChange = (e) => {
     e.preventDefault();
 

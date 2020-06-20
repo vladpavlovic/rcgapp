@@ -22,7 +22,6 @@ class App extends Component {
       agreementUUID: undefined,
       completed: {},
       signedAgreement: {},
-      message: "",
     };
   }
 
@@ -31,7 +30,7 @@ class App extends Component {
   }
   saveUUID = (formUUID) => {
     let __uuid = formUUID;
-    console.log(__uuid);
+
     this.setState(
       {
         uuid: __uuid,
@@ -44,8 +43,7 @@ class App extends Component {
       .get(`http://rcgcovidapi.lypan.com/parents/${uuid}?today=1&unsigned=1`)
       .then((response) => {
         let __athletes = response.data.athletes;
-        console.log(this.state.uuid);
-        console.log(__athletes);
+
         this.setState(
           {
             athletes: __athletes,
@@ -76,7 +74,7 @@ class App extends Component {
       {
         currentUser: __currentUser,
       },
-      () => console.log("")
+      () => console.log("Current user saved")
     );
   };
 

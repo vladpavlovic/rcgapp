@@ -40,12 +40,6 @@ class Question extends Component {
 
     formData.forEach((value, property) => (answers[property] = value));
 
-    console.log(answers);
-
-    //here you can update, remove, add values/properties in the body object this is specially usefull if any custom process must be done to check, encrypt data or wherever you want.
-
-    // Request goes here.
-
     this.props.getAnswers(answers);
   };
 
