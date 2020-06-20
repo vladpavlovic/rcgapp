@@ -15,7 +15,7 @@ class AthleteGuestSelect extends Component {
       return <div></div>;
     }
     let check = this.props.athletes.filter(
-      (item, i) => item.signed_today == false
+      (item, i) => item.signed_today === false
     );
 
     if (check.length === 0) {
@@ -47,7 +47,7 @@ class AthleteGuestSelect extends Component {
 
         <form>
           {this.props.athletes
-            .filter((item, i) => item.signed_today == false)
+            .filter((item, i) => item.signed_today === false)
             .map((item, i) => (
               <Grid container spacing={3}>
                 <Grid item xs={3}>
