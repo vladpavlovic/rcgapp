@@ -1,7 +1,18 @@
 .App {
   text-align: center;
 }
+.paper {
+  padding: 30px;
+  margin: 30px;
+}
 
+.MuiButton-contained.button {
+  /* padding: 1em; */
+  margin: 2em 1em;
+}
+.agree {
+  padding: 15px;
+}
 .banner,
 .header {
   max-width: 100%;

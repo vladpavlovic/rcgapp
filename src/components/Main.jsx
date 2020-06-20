@@ -7,6 +7,7 @@ import Checklist from "./Checklist";
 class Main extends Component {
   componentDidMount() {
     this.props.saveUUID(this.props.match.params.uuid);
+    this.props.getAthletes(this.props.match.params.uuid);
   }
   componentDidUpdate() {}
 
@@ -32,8 +33,10 @@ class Main extends Component {
               <Grid item xs={12}>
                 <AthleteGuestSelect
                   userData={this.props.userData}
-                  athletes={this.props.userData.data.athletes}
-                  getAnswers={(answers) => this.getAnswers(answers)}
+                  uuid={this.props.uuid}
+                  athletes={this.props.athletes}
+                  getAthletes={(uuid) => this.props.getAthletes(uuid)}
+                  getAnswers={(answers) => this.props.getAnswers(answers)}
                   setCurrentUser={(current) =>
                     this.props.setCurrentUser(current)
                   }

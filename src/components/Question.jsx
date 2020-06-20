@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import swal from "sweetalert";
-import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 
 class Question extends Component {
   renderType = (item) => {
@@ -54,8 +53,8 @@ class Question extends Component {
     return (
       <form onSubmit={this.submitHandler}>
         {this.props.agreement.questions.map((item, i) => (
-          <Grid container spacing={3}>
-            <Grid item xs={10}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={10}>
               <div
                 dangerouslySetInnerHTML={{
                   __html: item.question,
@@ -63,7 +62,7 @@ class Question extends Component {
               />
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2} align="center">
               <div
                 dangerouslySetInnerHTML={{
                   __html: this.renderType(item),
@@ -76,8 +75,14 @@ class Question extends Component {
           If you answer yes to any of the questions or have a fever{" "}
           <b>DO NOT</b> come to Rose City Gymnastics Club
         </Grid>
-        <Grid item xs={12} align="right">
-          <input type="submit" value="Submit" />
+        <Grid item xs={12} align="center">
+          <Button className="button" variant="contained" type="reset">
+            Clear
+          </Button>
+
+          <Button className="button" variant="contained" type="submit">
+            Submit
+          </Button>
         </Grid>
       </form>
     );

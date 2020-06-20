@@ -8,8 +8,6 @@ import Grid from "@material-ui/core/Grid";
 
 import Header from "./components/Header";
 import Main from "./components/Main";
-import AthleteGuestSelect from "./components/AthleteGuestSelect";
-import { ConsoleWriter } from "istanbul-lib-report";
 
 class App extends Component {
   constructor(props) {
@@ -33,7 +31,7 @@ class App extends Component {
   }
   saveUUID = (formUUID) => {
     let __uuid = formUUID;
-
+    console.log(__uuid);
     this.setState(
       {
         uuid: __uuid,
@@ -41,7 +39,21 @@ class App extends Component {
       () => this.getForm(this.state.uuid)
     );
   };
-
+  getAthletes = (uuid) => {
+    axios
+      .get(`http://rcgcovidapi.lypan.com/parents/${uuid}?today=1&unsigned=1`)
+      .then((response) => {
+        let __athletes = response.data.athletes;
+        console.log(this.state.uuid);
+        console.log(__athletes);
+        this.setState(
+          {
+            athletes: __athletes,
+          },
+          () => console.log("Current Athletes have been retrieved")
+        );
+      });
+  };
   getForm = (uuid) => {
     axios
       .get(`http://rcgcovidapi.lypan.com/parents/${uuid}`)
@@ -120,7 +132,25 @@ class App extends Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        swal(response.data.message);
+        if (response.data.training_status === false) {
+          swal({
+            title: "Not approved for training",
+            text: response.data.message,
+            icon: "error",
+            button: "Close",
+          }).then(() => {
+            window.location.reload(true);
+          });
+        } else {
+          swal({
+            title: "Approved for training",
+            text: response.data.message,
+            icon: "success",
+            button: "Close",
+          }).then(() => {
+            window.location.reload(true);
+          });
+        }
       });
   };
 
@@ -138,6 +168,7 @@ class App extends Component {
             render={(props) => (
               <Main
                 saveUUID={(uuid) => this.saveUUID(uuid)}
+                uuid={this.state.uuid}
                 userData={this.state.userData}
                 athletes={this.state.athletes}
                 agreementUUID={this.state.agreementUUID}
@@ -145,7 +176,10 @@ class App extends Component {
                 currentUser={this.state.currentUser}
                 setCurrentUser={(current) => this.setCurrentUser(current)}
                 getAnswers={(answers) => this.getAnswers(answers)}
-                assembleAgreement={(completed) => this.getAnswers(completed)}
+                assembleAgreement={(completed) =>
+                  this.assembleAgreement(completed)
+                }
+                getAthletes={(uuid) => this.getAthletes(uuid)}
                 submitAgreement={(agreementUUID) =>
                   this.submitAgreement(agreementUUID)
                 }

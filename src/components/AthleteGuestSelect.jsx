@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
 import "../App.css";
-import Radio from "@material-ui/core/Radio";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import Paper from "@material-ui/core/Paper";
 
 class AthleteGuestSelect extends Component {
+  componentDidMount() {
+    console.log(this.props.uuid);
+    console.log(this.props.athletes);
+  }
+
   handleInputChange = (e) => {
     e.preventDefault();
 
@@ -17,6 +19,29 @@ class AthleteGuestSelect extends Component {
     if (!this.props.athletes) {
       return <div></div>;
     }
+    let check = this.props.athletes.filter(
+      (item, i) => item.signed_today == false
+    );
+
+    if (check.length === 0) {
+      return (
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper className="paper">
+                <p>
+                  You do not have any athletes/volunteers scheduled for today.
+                  If you are scheduled to volunteer or have an athlete that is
+                  training today, but not shown, please contact Rose City
+                  Gymnastics. Thank you.
+                </p>
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      );
+    }
+
     return (
       <div>
         <Grid container spacing={3}>
@@ -24,47 +49,31 @@ class AthleteGuestSelect extends Component {
             Who would you like to check-in?
           </Grid>
         </Grid>
-        <form>
-          <Grid container spacing={3}>
-            <Grid item xs={3}>
-              <label>Yourself&nbsp;</label>
-            </Grid>
-
-            <Grid item xs={3}>
-              <input
-                name="whichAthlete"
-                type="radio"
-                value={this.props.userData.data.uuid}
-                onChange={this.handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}></Grid>
-          </Grid>
-        </form>
 
         <form>
-          {this.props.athletes.map((item, i) => (
-            <Grid container spacing={3}>
-              <Grid item xs={3}>
-                <label>
-                  {item.first_name}&nbsp;
-                  {item.last_name}&nbsp;
-                </label>
-              </Grid>
+          {this.props.athletes
+            .filter((item, i) => item.signed_today == false)
+            .map((item, i) => (
+              <Grid container spacing={3}>
+                <Grid item xs={3}>
+                  <label>
+                    {item.first_name}&nbsp;
+                    {item.last_name}&nbsp;
+                  </label>
+                </Grid>
 
-              <Grid item xs={3}>
-                <input
-                  name="whichAthlete"
-                  type="radio"
-                  value={item.uuid}
-                  onChange={this.handleInputChange}
-                />
+                <Grid item xs={3}>
+                  <input
+                    name="whichAthlete"
+                    type="radio"
+                    value={item.uuid}
+                    onChange={this.handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={3}></Grid>
               </Grid>
-              <Grid item xs={3}></Grid>
-              <Grid item xs={3}></Grid>
-            </Grid>
-          ))}
+            ))}
         </form>
       </div>
     );
