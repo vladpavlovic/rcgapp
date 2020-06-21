@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import "typeface-roboto";
@@ -74,13 +74,14 @@ class App extends Component {
       {
         currentUser: __currentUser,
       },
-      () => console.log("Current user saved")
+      () => console.log(this.state.currentUser)
     );
   };
 
   getAgreement = () =>
     axios.get("http://rcgcovidapi.lypan.com/agreements").then((response) => {
       let __agreement = response.data._embedded.items[0];
+      console.log(__agreement);
       let __agreementUUID = __agreement.uuid;
       this.setState(
         {
@@ -149,6 +150,15 @@ class App extends Component {
             window.location.reload(true);
           });
         }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        swal({
+          title: "Oops, something went wrong!",
+          text: error.response.data.message,
+          icon: "warning",
+          button: "Close",
+        });
       });
   };
 
@@ -161,31 +171,41 @@ class App extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Route
-            path="/:uuid"
-            render={(props) => (
-              <Main
-                saveUUID={(uuid) => this.saveUUID(uuid)}
-                uuid={this.state.uuid}
-                userData={this.state.userData}
-                athletes={this.state.athletes}
-                agreementUUID={this.state.agreementUUID}
-                signedAgreement={this.state.signedAgreement}
-                currentUser={this.state.currentUser}
-                setCurrentUser={(current) => this.setCurrentUser(current)}
-                getAnswers={(answers) => this.getAnswers(answers)}
-                assembleAgreement={(completed) =>
-                  this.assembleAgreement(completed)
-                }
-                getAthletes={(uuid) => this.getAthletes(uuid)}
-                submitAgreement={(agreementUUID) =>
-                  this.submitAgreement(agreementUUID)
-                }
-                agreement={this.state.agreement}
-                {...props}
-              />
-            )}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => {
+                window.location = "http://www.rosecitygymnastics.com";
+                return null;
+              }}
+            />
+            <Route
+              path="/:uuid"
+              render={(props) => (
+                <Main
+                  saveUUID={(uuid) => this.saveUUID(uuid)}
+                  uuid={this.state.uuid}
+                  userData={this.state.userData}
+                  athletes={this.state.athletes}
+                  agreementUUID={this.state.agreementUUID}
+                  signedAgreement={this.state.signedAgreement}
+                  currentUser={this.state.currentUser}
+                  setCurrentUser={(current) => this.setCurrentUser(current)}
+                  getAnswers={(answers) => this.getAnswers(answers)}
+                  assembleAgreement={(completed) =>
+                    this.assembleAgreement(completed)
+                  }
+                  getAthletes={(uuid) => this.getAthletes(uuid)}
+                  submitAgreement={(agreementUUID) =>
+                    this.submitAgreement(agreementUUID)
+                  }
+                  agreement={this.state.agreement}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
         </Grid>
       </div>
     );

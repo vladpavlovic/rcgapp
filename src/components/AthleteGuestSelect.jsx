@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import "../App.css";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 class AthleteGuestSelect extends Component {
-  handleInputChange = (e) => {
-    e.preventDefault();
-
-    this.props.setCurrentUser(e.target.value);
+  handleInputChange = (currentUUID) => {
+    this.props.setCurrentUser(currentUUID);
   };
 
   render() {
@@ -46,29 +45,23 @@ class AthleteGuestSelect extends Component {
         </Grid>
 
         <form>
-          {this.props.athletes
-            .filter((item, i) => item.signed_today === false)
-            .map((item, i) => (
-              <Grid container spacing={3}>
-                <Grid item xs={3}>
-                  <label>
-                    {item.first_name}&nbsp;
-                    {item.last_name}&nbsp;
-                  </label>
-                </Grid>
-
-                <Grid item xs={3}>
-                  <input
+          <Grid align="center">
+            {this.props.athletes
+              .filter((item, i) => item.signed_today === false)
+              .map((item, i) => (
+                <Grid item xs={12}>
+                  <Button
                     name="whichAthlete"
-                    type="radio"
-                    value={item.uuid}
-                    onChange={this.handleInputChange}
-                  />
+                    className="button"
+                    variant="contained"
+                    onClick={() => this.handleInputChange(item.uuid)}
+                  >
+                    {item.first_name}&nbsp;
+                    {item.last_name}
+                  </Button>
                 </Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}></Grid>
-              </Grid>
-            ))}
+              ))}
+          </Grid>
         </form>
       </div>
     );
