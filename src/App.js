@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import "typeface-roboto";
@@ -74,14 +74,14 @@ class App extends Component {
       {
         currentUser: __currentUser,
       },
-      () => console.log(this.state.currentUser)
+      () => console.log("Current athlete has been retrieved")
     );
   };
 
   getAgreement = () =>
     axios.get("http://rcgcovidapi.lypan.com/agreements").then((response) => {
       let __agreement = response.data._embedded.items[0];
-      console.log(__agreement);
+
       let __agreementUUID = __agreement.uuid;
       this.setState(
         {
@@ -126,7 +126,7 @@ class App extends Component {
   submitAgreement = (signedAgreement) => {
     axios
       .post(
-        `http://rcgcovidapi.lypan.com/athletes/${this.state.currentUser}/agreements/${this.state.agreementUUID}/actions/sign`,
+        `http://rcgcovidapi.lypan.com/athletes/${this.state.currentUser.uuid}/agreements/${this.state.agreementUUID}/actions/sign`,
         signedAgreement,
         { headers: { "Content-Type": "application/json" } }
       )

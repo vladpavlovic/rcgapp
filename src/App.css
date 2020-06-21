@@ -3,12 +3,11 @@
 }
 .paper {
   padding: 30px;
-  margin: 30px;
+  margin: 10px;
 }
 
 .MuiButton-contained.button {
-  /* padding: 1em; */
-  margin: 2em 1em;
+  margin: 1em;
 }
 .agree {
   padding: 15px;

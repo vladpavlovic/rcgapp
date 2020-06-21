@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import "../App.css";
-import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
 class AthleteGuestSelect extends Component {
@@ -22,14 +21,12 @@ class AthleteGuestSelect extends Component {
         <div>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className="paper">
-                <p>
-                  You do not have any athletes/volunteers scheduled for today.
-                  If you are scheduled to volunteer or have an athlete that is
-                  training today, but not shown, please contact Rose City
-                  Gymnastics. Thank you.
-                </p>
-              </Paper>
+              <p>
+                You do not have any athletes/volunteers scheduled for today. If
+                you are scheduled to volunteer or have an athlete that is
+                training today, but not shown, please contact Rose City
+                Gymnastics. Thank you.
+              </p>
             </Grid>
           </Grid>
         </div>
@@ -40,7 +37,7 @@ class AthleteGuestSelect extends Component {
       <div>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            Who would you like to check-in?
+            Who would you like to check-in today?
           </Grid>
         </Grid>
 
@@ -54,7 +51,7 @@ class AthleteGuestSelect extends Component {
                     name="whichAthlete"
                     className="button"
                     variant="contained"
-                    onClick={() => this.handleInputChange(item.uuid)}
+                    onClick={() => this.handleInputChange(item)}
                   >
                     {item.first_name}&nbsp;
                     {item.last_name}

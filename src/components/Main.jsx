@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import AthleteGuestSelect from "./AthleteGuestSelect";
 import Checklist from "./Checklist";
+import Paper from "@material-ui/core/Paper";
 
 class Main extends Component {
   componentDidMount() {
@@ -26,23 +27,25 @@ class Main extends Component {
                 </h2>
               </Grid>
             </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                Hello {this.props.userData.data.first_name},
+            <Paper className="paper">
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <b>Hello {this.props.userData.data.first_name},</b>
+                </Grid>
+                <Grid item xs={12}>
+                  <AthleteGuestSelect
+                    userData={this.props.userData}
+                    uuid={this.props.uuid}
+                    athletes={this.props.athletes}
+                    getAthletes={(uuid) => this.props.getAthletes(uuid)}
+                    getAnswers={(answers) => this.props.getAnswers(answers)}
+                    setCurrentUser={(current) =>
+                      this.props.setCurrentUser(current)
+                    }
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <AthleteGuestSelect
-                  userData={this.props.userData}
-                  uuid={this.props.uuid}
-                  athletes={this.props.athletes}
-                  getAthletes={(uuid) => this.props.getAthletes(uuid)}
-                  getAnswers={(answers) => this.props.getAnswers(answers)}
-                  setCurrentUser={(current) =>
-                    this.props.setCurrentUser(current)
-                  }
-                />
-              </Grid>
-            </Grid>
+            </Paper>
           </Container>
         </div>
       );
@@ -62,6 +65,7 @@ class Main extends Component {
                 <Checklist
                   agreement={this.props.agreement}
                   getAnswers={(answers) => this.props.getAnswers(answers)}
+                  currentUser={this.props.currentUser}
                 />
               </Grid>
             </Grid>
