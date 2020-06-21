@@ -28,7 +28,7 @@ class Main extends Component {
               </Grid>
             </Grid>
             <Paper className="paper">
-              <Grid container spacing={3}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <b>Hello {this.props.userData.data.first_name},</b>
                 </Grid>
