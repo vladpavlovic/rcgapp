@@ -25,7 +25,7 @@ class Question extends Component {
         return (
           "<p><label><p>Temperature:</p> <input name=" +
           item.uuid +
-          ' type="text" value="" size="5" required/></label> <select name="unit"> <option selected value="degC">&degC</option><option value="degF">&degF</option></select> </p>'
+          ' type="number" value="" step="0.01" min="30" max="110" size="5" required/></label> <select name="unit"> <option selected value="degC">&degC</option><option value="degF">&degF</option></select> </p>'
         );
       default:
         return "";

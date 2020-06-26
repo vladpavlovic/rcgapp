@@ -44,3 +44,7 @@ td {
   text-align: left;
   padding-right: 25px;
 }
+
+input[type="number"]{
+  width: 5em;
+}

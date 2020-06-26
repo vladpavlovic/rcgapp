@@ -13,7 +13,7 @@ class Checklist extends Component {
 
     return (
       <Paper className="paper">
-        <Grid container spacing={3}>
+        <Grid container spacing={3} alignItems="baseline">
           <Grid item xs={0} sm={4}></Grid>
           <Grid item xs={6} sm={4}>
             <b>
@@ -26,7 +26,7 @@ class Checklist extends Component {
               {this.props.currentUser.last_name}
             </b>
           </Grid>
-          <Grid item xs={2} sm={4} align="right" alignItems="baseline">
+          <Grid item xs={2} sm={4} align="right">
             <Button
               className="button"
               variant="contained"
