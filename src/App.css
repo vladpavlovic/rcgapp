@@ -1,3 +1,8 @@
+body{
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -43,4 +48,14 @@
 td {
   text-align: left;
   padding-right: 25px;
+}
+
+input[type="number"]{
+  width: 5em;
+}
+
+@media (max-width:959px) {
+  input, select { /* add further tags here according to your needs */
+      font-size:1.1em;
+  }
 }

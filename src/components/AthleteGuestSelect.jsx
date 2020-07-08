@@ -12,11 +12,12 @@ class AthleteGuestSelect extends Component {
     if (!this.props.athletes) {
       return <div></div>;
     }
-    let check = this.props.athletes.filter(
+    let signed_today = this.props.athletes.filter(
       (item, i) => item.signed_today === false
     );
+    let parent_uuid = this.props.uuid;
 
-    if (check.length === 0) {
+    if (signed_today.length === 0) {
       return (
         <div>
           <Grid container spacing={3}>
@@ -44,9 +45,9 @@ class AthleteGuestSelect extends Component {
         <form>
           <Grid align="center">
             {this.props.athletes
-              .filter((item, i) => item.signed_today === false)
+              .filter((item, i) => item.signed_today === false && (item.expired_signing === false || item.uuid === parent_uuid))
               .map((item, i) => (
-                <Grid item xs={12}>
+                <Grid item xs={12} key={i}>
                   <Button
                     name="whichAthlete"
                     className="button"
@@ -56,6 +57,16 @@ class AthleteGuestSelect extends Component {
                     {item.first_name}&nbsp;
                     {item.last_name}
                   </Button>
+                </Grid>
+              ))}
+
+              {this.props.athletes
+              .filter((item, i) => item.signed_today === false && item.expired_signing === true && item.uuid !== parent_uuid)
+              .map((item, i) => (
+                <Grid item xs={12} key={i}>
+                    <p><strong>{item.first_name}&nbsp;
+                    {item.last_name} </strong>has missed the signing window for today's training.</p>
+                    <p>Assessments must be completed 1 hour prior to training.</p>
                 </Grid>
               ))}
           </Grid>

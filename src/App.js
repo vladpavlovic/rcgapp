@@ -47,8 +47,7 @@ class App extends Component {
         this.setState(
           {
             athletes: __athletes,
-          },
-          () => console.log("Current Athletes have been retrieved")
+          }
         );
       });
   };
@@ -61,8 +60,7 @@ class App extends Component {
         this.setState(
           {
             userData: __userData,
-          },
-          () => console.log("Form has been retrieved")
+          }
         );
       });
   };
@@ -73,8 +71,7 @@ class App extends Component {
     this.setState(
       {
         currentUser: __currentUser,
-      },
-      () => console.log("Current athlete has been retrieved")
+      }
     );
   };
 
@@ -87,8 +84,7 @@ class App extends Component {
         {
           agreement: __agreement,
           agreementUUID: __agreementUUID,
-        },
-        () => console.log("Agreement has been retrieved")
+        }
       );
     });
 
