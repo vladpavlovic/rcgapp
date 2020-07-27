@@ -40,7 +40,7 @@ class App extends Component {
   };
   getAthletes = (uuid) => {
     axios
-      .get(`http://rcgcovidapi.lypan.com/parents/${uuid}?today=1&unsigned=1`)
+      .get(`https://rcgcovidapi.lypan.com/parents/${uuid}?today=1&unsigned=1`)
       .then((response) => {
         let __athletes = response.data.athletes;
 
@@ -53,7 +53,7 @@ class App extends Component {
   };
   getForm = (uuid) => {
     axios
-      .get(`http://rcgcovidapi.lypan.com/parents/${uuid}`)
+      .get(`https://rcgcovidapi.lypan.com/parents/${uuid}`)
       .then((response) => {
         let __userData = response;
 
@@ -76,7 +76,7 @@ class App extends Component {
   };
 
   getAgreement = () =>
-    axios.get("http://rcgcovidapi.lypan.com/agreements").then((response) => {
+    axios.get("https://rcgcovidapi.lypan.com/agreements").then((response) => {
       let __agreement = response.data._embedded.items[0];
 
       let __agreementUUID = __agreement.uuid;
@@ -122,7 +122,7 @@ class App extends Component {
   submitAgreement = (signedAgreement) => {
     axios
       .post(
-        `http://rcgcovidapi.lypan.com/athletes/${this.state.currentUser.uuid}/agreements/${this.state.agreementUUID}/actions/sign`,
+        `https://rcgcovidapi.lypan.com/athletes/${this.state.currentUser.uuid}/agreements/${this.state.agreementUUID}/actions/sign`,
         signedAgreement,
         { headers: { "Content-Type": "application/json" } }
       )
